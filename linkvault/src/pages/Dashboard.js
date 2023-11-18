@@ -1,12 +1,14 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
+import Layout from '../components/Layout'
+import { useAuth } from '../context/AuthContext'
 
 function Dashboard() {
+  const {currentUser} = useAuth();
   return (
-    <div>
-    <Navbar/>
-      Dashboard Page
-    </div>
+    <Layout>
+    {currentUser && currentUser.email}
+      Dashboard page
+    </Layout>
   )
 }
 

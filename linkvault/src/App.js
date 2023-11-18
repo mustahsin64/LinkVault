@@ -1,15 +1,16 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import AppRoutes from './AppRoutes';
+/* eslint-disable no-unused-vars */
+import React from "react";
+import AppRoutes from "./AppRoutes";
+import AuthProvider from "./context/AuthContext";
+import firebase from './firebase';
 
 function App() {
   return (
-    // <Routes>
-    //   <Route path="/" element={<Dashboard/>}/>
-    // </Routes>
-    <div className="App">
-      <AppRoutes/>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <AppRoutes />
+      </div>
+    </AuthProvider>
   );
 }
 
