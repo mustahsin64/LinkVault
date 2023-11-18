@@ -1,11 +1,11 @@
 // Routes.js
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Topics from './pages/Topics';
-import Links from './pages/Links';
-import SignUp from './pages/Signup';
+import { Dashboard, Topics, Links } from './pages';
+//import SignUp from './pages/Signup';
+
+const SignUp = lazy(() => import("./pages/Signup"));
 
 function AppRoutes() {
   return (
@@ -14,7 +14,10 @@ function AppRoutes() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/topics" element={<Topics />} />
       <Route path="/links" element={<Links />} />
-      <Route path="/signup" element={<SignUp />} />
+      
+      <Route path="/signup" element={<Suspense fallback={<div>Loading...</div>}>
+              <SignUp />
+            </Suspense>} />
     </Routes>
   );
 }
