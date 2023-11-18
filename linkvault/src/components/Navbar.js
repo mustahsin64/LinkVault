@@ -1,19 +1,19 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 
-const navigationList = [
-  { name: "Dashboard", href: "/dashboard", current: true },
-  { name: "Topics", href: "/topics", current: false },
-  { name: "Links", href: "/links", current: false },
-  { name: "Favorites", href: "/favorites", current: false },
-];
+// const navigationList = [
+//   { name: "Dashboard", href: "/dashboard", current: true },
+//   { name: "Topics", href: "/topics", current: false },
+//   { name: "Links", href: "/links", current: false },
+//   { name: "Favorites", href: "/favorites", current: false },
+// ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -22,6 +22,28 @@ function classNames(...classes) {
 export default function Navbar() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+
+  const [navigationList, setNavigationList] = useState([
+    { name: "Dashboard", href: "/dashboard", current: true },
+    { name: "Topics", href: "/topics", current: false },
+    { name: "Links", href: "/links", current: false },
+    { name: "Favorites", href: "/favorites", current: false },
+  ]);
+
+  useEffect(() => {
+
+  },[navigationList])
+
+  const handleItemClick = (selectedItem) => {
+    const updatedNavigationList = navigationList.map((item) => ({
+      ...item,
+      current: item === selectedItem,
+    }));
+    console.log('updatedNavigationList' + JSON.stringify(updatedNavigationList));
+    setNavigationList(updatedNavigationList);
+    console.log('navigationList' + JSON.stringify(navigationList));
+  };
+
   
   return (
     <Disclosure as="nav" className="bg-primary">
@@ -52,19 +74,19 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigationList.map((item) => (
-                      <Link
+                      <NavLink
                         key={item.name}
-                        to={item.href} // Use the "to" prop to specify the destination path
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
+                        to={item.href}
+                        className={({ isActive }) =>
+         isActive ? "bg-secondary text-white rounded-md px-3 py-2 text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+        }
+
+                        
+                        onClick={() => handleItemClick(item)}
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </Link>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
@@ -96,8 +118,8 @@ export default function Navbar() {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        className="h-8 w-8 rounded-full object-cover"
+                        src={currentUser.photoURL}
                         alt=""
                       />
                     </Menu.Button>

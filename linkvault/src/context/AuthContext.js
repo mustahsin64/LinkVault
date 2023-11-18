@@ -39,7 +39,7 @@ function AuthProvider({children}) {
             // update username
             updateProfile(user,{
                 displayName: username,
-                photoURL: "https://unsplash.com/photos/silhouette-photo-of-man-on-cliff-during-sunset-_6HzPU9Hyfg"
+                photoURL: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             }).then(() => {
                 // Profile updated!
                 const updatedUser = auth.currentUser
