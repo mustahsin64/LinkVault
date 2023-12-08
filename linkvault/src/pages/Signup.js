@@ -107,7 +107,7 @@ const SignUp = () => {
               type="submit"
               disabled={loading}
               onClick={handleSignup}
-              className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-1"
+              className="w-full text-center py-3 rounded bg-red-500 text-white hover:bg-green-700 focus:outline-none my-1"
             >
               Create Account
             </button>
@@ -127,10 +127,9 @@ const SignUp = () => {
 
         <div className="text-grey-dark mt-6">
           Already have an account?{' '}
-          <a className="no-underline border-b border-blue-700 text-blue-700" href="../login/">
-            Log in
-          </a>
-          .
+          <Link 
+          to="/login"
+          className="no-underline border-b border-blue-700 text-blue-700">Log in</Link>
         </div>
       </div>
     </div>

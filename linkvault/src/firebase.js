@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -9,6 +10,30 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+const db = getFirestore()
+
+//collection reference
+
+const colRef = collection(db,"links")
+
+export const addLink = (link,topic,tags) =>{
+
+  const tagsArray = tags.split(',');
+  console.log(tagsArray);
+
+
+  return addDoc(colRef,{
+    link: link,
+    topic: topic,
+    tags: tagsArray,
+  })
+
+}
+
+
 export default app;
